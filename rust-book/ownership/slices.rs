@@ -13,6 +13,7 @@ fn main() {
     println!("{}", first_word);
 
     let first_word = first_word_2(&input);
+    //input.clear(); // ERR! Immutable and mutable borrow
     println!("{}", first_word);
     
 }
@@ -40,7 +41,9 @@ fn first_word_book(s: &String) -> usize {
     s.len()
 }
 
-fn first_word_2(s: &String) -> &str {
+// string literals are just pointers to slices in memory. So we can
+// have this function accept a reference to a string literal. &Strings will be coerced
+fn first_word_2(s: &str) -> &str {
     let bytes = s.as_bytes();
     for (i, &item) in bytes.iter().enumerate() {
         if item == b' ' {
